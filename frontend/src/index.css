@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* App gradient background + panel polish */
+html, body { min-height: 100%; }
+body { background: linear-gradient(135deg, rgba(2,6,23,1) 0%, rgba(3,105,161,0.1) 35%, rgba(2,6,23,1) 100%); }
+.dark body { background: linear-gradient(135deg, rgba(9,9,11,1) 0%, rgba(3,105,161,0.15) 35%, rgba(9,9,11,1) 100%); }
+.shadow-sm{ box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.card-raise { box-shadow: 0 10px 25px rgba(2,6,23,0.15); border-radius: 16px; }
+.btn-primary { border-radius: 10px; padding: 0.5rem 0.75rem; }
+
+/* Mention styling */
+.whitespace-pre-wrap :where(.mention){ text-decoration: underline; }

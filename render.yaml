@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: motherlode-cmms-backend
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: "cd backend && npm install"
+    startCommand: "cd backend && npm start"
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: JWT_SECRET
+        generateValue: true
+    disk:
+      name: uploads
+      mountPath: /opt/render/project/src/backend/uploads
+      sizeGB: 1
+
+  - type: static
+    name: motherlode-cmms-frontend
+    buildCommand: "cd frontend && npm install && npm run build"
+    publishPath: "frontend/dist"
+    routes:
+      - type: rewrite
+        source: /api/*
+        destination: https://<your-backend-subdomain>.onrender.com/api/$1
+      - type: rewrite
+        source: /uploads/*
+        destination: https://<your-backend-subdomain>.onrender.com/uploads/$1
