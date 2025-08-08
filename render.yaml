@@ -4,8 +4,9 @@ services:
     env: node
     plan: free
     region: oregon
-    buildCommand: "cd backend && npm install"
-    startCommand: "cd backend && npm start"
+    rootDir: backend
+    buildCommand: "npm install"
+    startCommand: "npm start"
     envVars:
       - key: NODE_VERSION
         value: 20
@@ -16,11 +17,13 @@ services:
       mountPath: /opt/render/project/src/backend/uploads
       sizeGB: 1
 
-  - type: static
+  - type: static_site
     name: motherlode-cmms-frontend
-    buildCommand: "cd frontend && npm install && npm run build"
-    publishPath: "frontend/dist"
+    rootDir: frontend
+    buildCommand: "npm install && npm run build"
+    publishPath: "dist"
     routes:
+      # Replace <your-backend-subdomain> after backend finishes its first deploy.
       - type: rewrite
         source: /api/*
         destination: https://<your-backend-subdomain>.onrender.com/api/$1
